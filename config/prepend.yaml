@@ -1,0 +1,10 @@
+doctrine:
+  orm:
+    mappings:
+      AuditRequest:
+        dir: '/Domain'
+        prefix: 'DMP\AuditRequestBundle\Domain\'
+        is_bundle: true
+  dbal:
+    types:
+      !php/const DMP\AuditRequestBundle\Infrastructure\Doctrine\AuditRequestIdType::NAME: DMP\AuditRequestBundle\Infrastructure\Doctrine\AuditRequestIdType

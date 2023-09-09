@@ -1,0 +1,12 @@
+services:
+  DMP\AuditRequestBundle\Aop\TransactionalPointcut:
+    public: true
+    autowire: true
+    tags:
+      - { name: jms_aop.pointcut, interceptor: DMP\AuditRequestBundle\Aop\TransactionalInterceptor}
+  DMP\AuditRequestBundle\Aop\TransactionalInterceptor:
+    public: true
+    autowire: true
+  DMP\AuditRequestBundle\Doctrine\OrmTransactionManager:
+    public: true
+    autowire: true
