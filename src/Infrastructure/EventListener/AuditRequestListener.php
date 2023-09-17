@@ -60,7 +60,7 @@ class AuditRequestListener implements EventSubscriberInterface
                             $request->getContent() ? json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR) : [],
                             Status::PENDING,
                             null,
-                            $auditable->getReferenceType(),
+                            $auditable->getReferenceType() !== null ? (array_key_exists($auditable->getReferenceType(), $routeParams) ? $routeParams[$auditable->getReferenceType()] : $auditable->getReferenceType()) : null,
                             $auditable->getReferenceIdentifier() !== null ? (array_key_exists($auditable->getReferenceIdentifier(), $routeParams) ? $routeParams[$auditable->getReferenceIdentifier()] : null) : null,
                         ),
                         (string)$this->security->getUser()->getId()
