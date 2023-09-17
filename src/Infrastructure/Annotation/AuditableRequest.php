@@ -12,26 +12,19 @@ namespace DMP\AuditRequestBundle\Infrastructure\Annotation;
 #[\Attribute(\Attribute::IS_REPEATABLE | \Attribute::TARGET_METHOD)]
 class AuditableRequest
 {
-    private readonly ?string $referenceType;
-    private readonly ?string $referenceId;
 
-    public function __construct(array $options = [])
-    {
-        if (isset($options['referenceType'])) {
-            $this->referenceType = $options['referenceType'];
-        }
-        if (isset($options['referenceId'])) {
-            $this->referenceId = $options['referenceId'];
-        }
-    }
+    public function __construct(
+        private readonly ?string $referenceType = null,
+        private readonly ?string $referenceIdentifier = null)
+    {}
 
     public function getReferenceType(): ?string
     {
         return $this->referenceType;
     }
 
-    public function getReferenceId(): ?string
+    public function getReferenceIdentifier(): ?string
     {
-        return $this->referenceId;
+        return $this->referenceIdentifier;
     }
 }

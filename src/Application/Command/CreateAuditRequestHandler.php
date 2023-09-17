@@ -7,26 +7,23 @@ namespace DMP\AuditRequestBundle\Application\Command;
 use DMP\AuditRequestBundle\Domain\AuditRequest;
 use DMP\AuditRequestBundle\Domain\AuditRequestRepository;
 use DMP\CQRS\Application\Command\CommandHandlerInterface;
-use DMP\TransactionalBundle\Annotation\Transactional;
 
 class CreateAuditRequestHandler implements CommandHandlerInterface
 {
     public function __construct(
-        private readonly AuditRequestRepository $accountRepository
+        private readonly AuditRequestRepository $repository
     )
     {}
 
-    /**
-     * @Transactional()
-     */
     public function __invoke(CreateAuditRequest $command): void
     {
-        $this->accountRepository->save(
+        $this->repository->save(
             new AuditRequest(
                 $command->getAuditRequestId(),
                 $command->getSpecification(),
                 $command->getUserId()
             )
         );
+        $this->repository->commit();
     }
 }

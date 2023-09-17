@@ -31,8 +31,10 @@ final class AuditRequestDto
         public readonly DateTimeImmutable $createdAt,
         public readonly string $ip,
         public readonly string $method,
+        /** @var string[] */
         public readonly array $request,
         public readonly Status $status,
+        /** @var string[] */
         public readonly ?array $errors,
         public readonly ?string $referenceType,
         public readonly ?string $referenceId,

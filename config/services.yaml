@@ -1,12 +1,40 @@
 services:
-  DMP\AuditRequestBundle\Aop\TransactionalPointcut:
-    public: true
-    autowire: true
-    tags:
-      - { name: jms_aop.pointcut, interceptor: DMP\AuditRequestBundle\Aop\TransactionalInterceptor}
-  DMP\AuditRequestBundle\Aop\TransactionalInterceptor:
-    public: true
-    autowire: true
+
   DMP\AuditRequestBundle\Doctrine\OrmTransactionManager:
     public: true
     autowire: true
+
+  DMP\AuditRequestBundle\Application\Command\CreateAuditRequestHandler:
+    autowire: true
+    autoconfigure: true
+
+  DMP\AuditRequestBundle\Application\Command\UpdateAuditRequestHandler:
+    autowire: true
+    autoconfigure: true
+
+  DMP\AuditRequestBundle\Application\Query\GetAuditRequestHandler:
+    autowire: true
+    autoconfigure: true
+
+  DMP\AuditRequestBundle\Application\Query\GetAuditRequestListHandler:
+    autowire: true
+    autoconfigure: true
+
+  DMP\AuditRequestBundle\Domain\:
+    resource: '../src/Domain/*Repository.php'
+    autowire: true
+    autoconfigure: true
+    tags: ['doctrine.repository_service']
+
+  DMP\AuditRequestBundle\Infrastructure\Persistence\DoctrineAuditRequestRepository:
+    autowire: true
+    autoconfigure: true
+
+  DMP\AuditRequestBundle\Domain\AuditRequestRepository:
+    alias: DMP\AuditRequestBundle\Infrastructure\Persistence\DoctrineAuditRequestRepository
+
+  DMP\AuditRequestBundle\Infrastructure\EventListener\AuditRequestListener:
+    autowire: true
+    autoconfigure: true
+    tags:
+      - { name: kernel.event_listener }

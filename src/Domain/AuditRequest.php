@@ -6,6 +6,7 @@ namespace DMP\AuditRequestBundle\Domain;
 
 use DateTimeImmutable;
 use DMP\AuditRequestBundle\Domain\Specification\AuditRequestSpecification;
+use DMP\AuditRequestBundle\Domain\Specification\AuditRequestUpdateStatusSpecification;
 use DMP\AuditRequestBundle\Infrastructure\Doctrine\AuditRequestIdType;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -36,10 +37,10 @@ class AuditRequest
     private readonly array $request;
 
     #[ORM\Column(type: Types::STRING, enumType: Status::class)]
-    private readonly Status $status;
+    private Status $status;
 
     #[ORM\Column(type: Types::JSON, nullable: true, options: ['jsonb' => true])]
-    private readonly ?array $errors;
+    private ?array $errors;
 
     #[ORM\Column(type: Types::STRING, nullable: true)]
     private readonly ?string $referenceType;
@@ -59,6 +60,12 @@ class AuditRequest
         $this->createdAt = new DateTimeImmutable();
         $this->userId = $userId;
         $this->applySpecification($specification);
+    }
+
+    public function updateStatus(AuditRequestUpdateStatusSpecification $specification): void
+    {
+        $this->status = $specification->status;
+        $this->errors = $specification->errors;
     }
 
     public function getId(): AuditRequestId
