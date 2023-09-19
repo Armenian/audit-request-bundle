@@ -37,7 +37,7 @@ class AuditRequestListener implements EventSubscriberInterface
      */
     public function onKernelController(ControllerEvent $event): void
     {
-        if (!$event->isMainRequest() || $this->security->getUser() === null) {
+        if (!$event->isMainRequest()) {
             return;
         }
 
