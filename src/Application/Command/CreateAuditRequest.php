@@ -13,7 +13,7 @@ final class CreateAuditRequest implements CommandInterface
     public function __construct(
         private readonly AuditRequestId $auditRequestId,
         private readonly AuditRequestSpecification $specification,
-        private readonly string $userId
+        private readonly ?string $userId
     ) {
     }
 
@@ -27,7 +27,7 @@ final class CreateAuditRequest implements CommandInterface
         return $this->specification;
     }
 
-    public function getUserId(): string
+    public function getUserId(): ?string
     {
         return $this->userId;
     }
