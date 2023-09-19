@@ -49,6 +49,7 @@ class AuditRequestListener implements EventSubscriberInterface
             $request = $event->getRequest();
             $routeParams = $request->attributes->get('_route_params');
             $auditRequestIds = [];
+            /** @var AuditableRequest $auditable */
             foreach (reset($attributes) as $auditable)  {
                 $auditRequestId = AuditRequestId::create();
                 $this->commandBus->handle(
@@ -56,7 +57,7 @@ class AuditRequestListener implements EventSubscriberInterface
                         $auditRequestId,
                         new AuditRequestSpecification(
                             $request->getClientIp(),
-                            $request->getMethod(),
+                            $auditable->getMethod() ?? $request->getMethod(),
                             $request->getContent() ? json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR) : [],
                             Status::PENDING,
                             null,
