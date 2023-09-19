@@ -54,7 +54,7 @@ class AuditRequest
     public function __construct(
         AuditRequestId $auditRequestId,
         AuditRequestSpecification $specification,
-        string $userId
+        ?string $userId
     ) {
         $this->id = $auditRequestId;
         $this->createdAt = new DateTimeImmutable();
@@ -113,7 +113,7 @@ class AuditRequest
         return $this->referenceId;
     }
 
-    public function getUserId(): string
+    public function getUserId(): ?string
     {
         return $this->userId;
     }

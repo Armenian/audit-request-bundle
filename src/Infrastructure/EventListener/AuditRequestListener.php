@@ -64,7 +64,7 @@ class AuditRequestListener implements EventSubscriberInterface
                             $auditable->getReferenceType() !== null ? (array_key_exists($auditable->getReferenceType(), $routeParams) ? $routeParams[$auditable->getReferenceType()] : $auditable->getReferenceType()) : null,
                             $auditable->getReferenceIdentifier() !== null ? (array_key_exists($auditable->getReferenceIdentifier(), $routeParams) ? $routeParams[$auditable->getReferenceIdentifier()] : null) : null,
                         ),
-                        (string)$this->security->getUser()->getId()
+                        $this->security->getUser() !== null ? (string)$this->security->getUser()->getId() : null,
                     )
                 );
                 $auditRequestIds[] = $auditRequestId;
