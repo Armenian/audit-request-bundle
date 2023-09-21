@@ -1,9 +1,5 @@
 services:
 
-  DMP\AuditRequestBundle\Doctrine\OrmTransactionManager:
-    public: true
-    autowire: true
-
   DMP\AuditRequestBundle\Application\Command\CreateAuditRequestHandler:
     autowire: true
     autoconfigure: true
